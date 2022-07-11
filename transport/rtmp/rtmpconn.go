@@ -55,7 +55,7 @@ func (c *Conn) Handshake() error {
 	if _, err := io.ReadFull(c.Conn, C2); err != nil {
 		return err
 	}
-	if !bytes.Equal(C2, S1) {
+	if !bytes.Equal(C2[8:], S1[8:]) {
 		return fmt.Errorf("rtmp: handshake: C2 is not equal S1")
 	}
 	return nil
