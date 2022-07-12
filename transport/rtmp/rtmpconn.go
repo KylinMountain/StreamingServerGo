@@ -131,7 +131,7 @@ func (c *Conn) ReadChunks() (ret *Chunk, err error) {
 			c.Conn.SetReadDeadline(time.Now().Add(c.ReadTimeout))
 			msgHeaderBytes := make([]byte, msgHeaderLen)
 			if _, err = io.ReadFull(c.Conn, msgHeaderBytes); err != nil {
-				return err
+				return
 			}
 			timestamp = uint32(msgHeaderBytes[2]) | uint32(msgHeaderBytes[1])<<8 | uint32(msgHeaderBytes[0])<<16
 			if format == 0 || format == 1 {
