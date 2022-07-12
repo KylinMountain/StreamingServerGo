@@ -9,7 +9,7 @@ type Chunk struct {
 
 type ChunkBasicHeader struct {
 	Format uint8
-	Csid   uint32
+	CSID   uint32
 }
 
 type ChunkMsgHeader struct {
