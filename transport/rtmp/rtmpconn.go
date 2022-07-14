@@ -71,7 +71,6 @@ func (c *Conn) ReadChunks() (ret *Chunk, err error) {
 		// read chunk
 		// read chunk basic header
 
-		// 不对 类型3 都没有块头。。。全是数据。。
 		basicHeaderBytes := make([]byte, 1)
 		c.Conn.SetReadDeadline(time.Now().Add(c.ReadTimeout))
 		if _, err = io.ReadFull(c.Conn, basicHeaderBytes); err != nil {
@@ -86,8 +85,6 @@ func (c *Conn) ReadChunks() (ret *Chunk, err error) {
 		case 1:
 			csidLen = 3
 		case 2:
-			csidLen = 1
-		default:
 			csidLen = 1
 		}
 
@@ -108,6 +105,8 @@ func (c *Conn) ReadChunks() (ret *Chunk, err error) {
 			CSID:   csid,
 			Format: format,
 		}
+
+		// TODO read chunks from cached map and then fill the previous header into that.
 
 		// read chunk msg header
 		var msgHeaderLen int
